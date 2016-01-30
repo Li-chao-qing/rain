@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background: #000;
+    }
+</style>
+<script>
+    window.onload=function(){
+        var arr=[];
+        var clientW=document.documentElement.clientWidth;
+        var clientH=document.documentElement.clientHeight;
+
+        for(var i=0;i<300;i++){
+            var time=3*Math.random();
+            var left=10+(clientW-20)*Math.random();
+            var div=document.createElement('div');
+            div.style.cssText='width:1px;height:20px;background:#fff;position:absolute;left:'+left+'px;top:-20px;transition:top 3s linear '+time+'s;-webkit-filter:blur(1px) ';
+            document.body.appendChild(div);
+            arr.push(div);
+        }
+        setTimeout(function(){
+            for(var i=0;i<arr.length;i++){
+                arr[i].style.top=clientH-20+'px';
+                arr[i].addEventListener('webkitTransitionEnd',function(){
+                    this.style.transition='';//也可以是none
+                    this.style.top=-20+'px';
+                    var that=this;
+
+                    setTimeout(function(){
+                        var time=3*Math.random();
+                        that.style.transition='top 3s linear '+time+'s';
+                        that.style.top=clientH-20+'px';
+                    },0);
+                },false);
+            }
+        },0);
+
+    };
+</script>
+<body>
+
+</body>
+</html>
